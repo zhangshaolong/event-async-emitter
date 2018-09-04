@@ -5,7 +5,7 @@
 
 const slice = Array.prototype.slice
 
-const EventAsyncEmitter = () => {
+const EventAsyncEmitter = function() {
   this.tasks = {}
   this.fired = {}
 }
@@ -13,7 +13,7 @@ const EventAsyncEmitter = () => {
 EventAsyncEmitter.tasks = {}
 EventAsyncEmitter.fired = {}
 
-EventAsyncEmitter.on = EventAsyncEmitter.prototype.on = (key, task) => {
+EventAsyncEmitter.on = EventAsyncEmitter.prototype.on = function(key, task) {
   if (!key || !task) {
     return false
   }
@@ -26,7 +26,7 @@ EventAsyncEmitter.on = EventAsyncEmitter.prototype.on = (key, task) => {
     }
   }
   queue.push(task)
-  return () => {
+  return function() {
     for (let i = 0; i < queue.length; i++) {
       if (queue[i] === task) {
         queue.splice(i--, 1)
@@ -35,8 +35,9 @@ EventAsyncEmitter.on = EventAsyncEmitter.prototype.on = (key, task) => {
   }
 }
 
-EventAsyncEmitter.fire = EventAsyncEmitter.prototype.fire = (key, ...args) => {
+EventAsyncEmitter.fire = EventAsyncEmitter.prototype.fire = function(key) {
   let tasks = this.tasks
+  let args = slice.call(arguments, 1)
   if (!key) {
     return false
   }
@@ -54,7 +55,7 @@ EventAsyncEmitter.fire = EventAsyncEmitter.prototype.fire = (key, ...args) => {
   }
 }
 
-EventAsyncEmitter.un = EventAsyncEmitter.prototype.un = (key, task) => {
+EventAsyncEmitter.un = EventAsyncEmitter.prototype.un = function(key, task) {
   if (!key) {
     this.tasks = {}
     return true
@@ -77,15 +78,16 @@ EventAsyncEmitter.un = EventAsyncEmitter.prototype.un = (key, task) => {
   return has
 }
 
-EventAsyncEmitter.once = EventAsyncEmitter.prototype.once = (key, task) => {
-  let handler = (...args) => {
-    task.apply(null, args)
-    this.un(key, handler)
+EventAsyncEmitter.once = EventAsyncEmitter.prototype.once = function(key, task) {
+  let me = this
+  let handler = function() {
+    task.apply(null, arguments)
+    me.un(key, handler)
   }
   this.on(key, handler)
 }
 
-EventAsyncEmitter.init = () => {
+EventAsyncEmitter.init = function() {
   return new EventAsyncEmitter()
 }
 

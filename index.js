@@ -35,7 +35,7 @@ EventAsyncEmitter.on = EventAsyncEmitter.prototype.on = (key, task) => {
   }
 }
 
-EventAsyncEmitter.fire = EventAsyncEmitter.prototype.fire = (key, args...) => {
+EventAsyncEmitter.fire = EventAsyncEmitter.prototype.fire = (key, ...args) => {
   let tasks = this.tasks
   if (!key) {
     return false
@@ -78,7 +78,7 @@ EventAsyncEmitter.un = EventAsyncEmitter.prototype.un = (key, task) => {
 }
 
 EventAsyncEmitter.once = EventAsyncEmitter.prototype.once = (key, task) => {
-  let handler = (args...) => {
+  let handler = (...args) => {
     task.apply(null, args)
     this.un(key, handler)
   }

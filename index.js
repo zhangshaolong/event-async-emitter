@@ -18,7 +18,7 @@ EventAsyncEmitter.on = EventAsyncEmitter.prototype.on = function(key, task) {
     return false
   }
   let queue = this.tasks[key]
-  if (!queue) {
+  if (!queue || !queue.length) {
     queue = this.tasks[key] = []
     let args = this.fired[key]
     if (args) {

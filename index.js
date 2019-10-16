@@ -91,4 +91,7 @@ EventAsyncEmitter.init = function() {
   return new EventAsyncEmitter()
 }
 
+export {
+  EventAsyncEmitter
+}
 export default EventAsyncEmitter

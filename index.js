@@ -2,7 +2,6 @@
  * @file Communication between modules, asynchronous modules do not lose messages
  * author zhangshaolong   369669902@qq.com
  */
-
 const slice = Array.prototype.slice
 
 const EventAsyncEmitter = function() {

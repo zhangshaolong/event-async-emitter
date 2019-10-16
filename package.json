@@ -1,10 +1,11 @@
 {
   "name": "event-async-emitter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Asynchronous event communication",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "uglifyjs index.js -o lib/index.js -c"
   },
   "repository": {
     "type": "git",
@@ -15,11 +16,18 @@
     "event",
     "emitter"
   ],
+  "pre-commit": [
+    "build"
+  ],
   "author": "zhangshaolong",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zhangshaolong/event-async-emitter/issues"
   },
   "homepage": "https://github.com/zhangshaolong/event-async-emitter#readme",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "pre-commit": "^1.2.2",
+    "uglify-es": "^3.3.9"
+  }
 }

@@ -2,7 +2,7 @@
   "name": "event-async-emitter",
   "version": "0.0.4",
   "description": "Asynchronous event communication",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "uglifyjs index.js -o lib/index.js -c"
